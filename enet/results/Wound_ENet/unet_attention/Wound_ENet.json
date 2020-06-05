@@ -1,0 +1,84 @@
+{
+  "main":
+          {
+            "config_name": "Wound_ENet",
+            "model_name": "unet_attention",
+            "weakly_model_name": "enet_unpooling",//define if you are using just weakly
+            "root_dir"  : "../ENet_640x360/",
+            "image_dir": "images_orignal",
+            "mask_dir": "9_class_labels_640_480",
+            "labels_folder": "weakly_labels",
+            "ROI_image_dir": "images_orignal",
+            "ROI_mask_dir": "9_class_labels_640_480",
+            "save_dir":"results",
+            "label_rgb":"Masks",
+            "remask_save_dir": "remask",
+            "encoder_config":"1-1-2019",
+            "new_folder": "weakly_images" ,
+            "dataset_name": "WOUND6" ,//wound6 is 9 class which its images and mask should be defined in ROI_image_dir/ROI_mask_dir and its size is defined in training.ROI_DH_DW
+                                      //wound5 is 3 class  which its images and mask should be defined image_dir and mask_dir its size is defined in training.DH_DW
+                                      //
+            "weakly_images_256_192":"weakly_images_256_192"
+
+          },
+
+  "augmentation":
+          {
+            "samplewise_center":false,
+            "samplewise_std_normalization":false,
+            "rotation_range":90,
+            "horizontal_flip":true,
+            "vertical_flip":true,
+            "zoom_range":0.5,
+            "seed":0
+          },
+
+  "training":
+          {
+            "epochs": 600,
+            "batch_size":2,
+            "completed_epochs": 0,
+            "dh": 480,
+            "dw": 640,
+            "ROI_dh": 480,
+            "ROI_dw": 640,
+            "model_save_dir": "results/",
+            "tensorboard_dir":"tempTB/", // Tensorboard file saving location
+            "model_save_frequency": 50,
+            "loss_function": "categorical_crossentropy",
+            "learning_rate":
+                  {
+                    "type": "cyclic",
+                    "mode": "triangular2",
+                    "base": 0.01,
+                    "step": 100,
+                    "max": 0.1
+                  }
+          },
+  "validation":
+          {
+            "validation_folder":"validation",
+            "do_validation": false,
+            "split": 0.2,
+            "extention":20,
+            "validation_result":"val_result_640_480",
+             "image_dir": "images",
+            "mask_dir": "masks"
+          },
+  "visualization":
+          {
+            "vis_layer":"vis_layer"
+
+          },
+  "cascad_testing":
+          {
+            "weight_file_first_net": "weights__epoch599.h5",
+            "encoder_config_first_net":"3class_bg_wd_sk",
+            "weight_file_second_net": "weights__epoch599.h5",
+            "encoder_config_second_net":"9_class_enet",
+            "folder":"cascad_test/",
+            "image":"ROI.jpg",
+            "input":"input/",
+            "output":"output"
+        }
+}
