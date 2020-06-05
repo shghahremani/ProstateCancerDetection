@@ -1,0 +1,77 @@
+{
+  "main":
+          {
+            "config_name": "Prostate",
+            "model_name": "unet_attention",
+            "weakly_model_name": "enet_unpooling",//define if you are using just weakly
+            "root_dir"  : "../",
+            "Radboud_image_dir": "images_orignal",
+            "Radboud_mask_dir": "6_class_labels-128-128",
+            "Karolinska_image_dir": "images_orignal",
+            "Karolinska_mask_dir": "3_class_labels_128_128",
+            "save_dir":"results",
+
+            "encoder_config":"1-1-2019",
+            "dataset_name": "Karolinska_Radboud"
+          },
+
+  "augmentation":
+          {
+            "samplewise_center":false,
+            "samplewise_std_normalization":false,
+            "rotation_range":90,
+            "horizontal_flip":true,
+            "vertical_flip":true,
+            "zoom_range":0.5,
+            "seed":0
+          },
+
+  "training":
+          {
+            "epochs": 600,
+            "batch_size":2,
+            "completed_epochs": 0,
+            "dh": 128,
+            "dw": 128,
+            "ROI_dh": 128,
+            "ROI_dw": 128,
+            "model_save_dir": "results/",
+            "tensorboard_dir":"tempTB/", // Tensorboard file saving location
+            "model_save_frequency": 50,
+            "loss_function": "categorical_crossentropy",
+            "learning_rate":
+                  {
+                    "type": "cyclic",
+                    "mode": "triangular2",
+                    "base": 0.01,
+                    "step": 100,
+                    "max": 0.1
+                  }
+          },
+  "validation":
+          {
+            "validation_folder":"validation",
+            "do_validation": false,
+            "split": 0.2,
+            "extention":20,
+            "validation_result":"val_result_640_480",
+             "image_dir": "images",
+            "mask_dir": "masks"
+          },
+  "visualization":
+          {
+            "vis_layer":"vis_layer"
+
+          },
+  "cascad_testing":
+          {
+            "weight_file_first_net": "1_weights__epoch599.h5",
+            "encoder_config_first_net":"3class_bg_wd_sk",
+            "weight_file_second_net": "2_weights__epoch599.h5",
+            "encoder_config_second_net":"9_class_enet",
+            "folder":"cascad_test/",
+            "image":"ROI.jpg",
+            "input":"input/",
+            "output":"output"
+        }
+}

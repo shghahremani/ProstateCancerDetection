@@ -1,0 +1,8 @@
+{
+  "root_dir" : "../MachineLearningData/ServerData/LimbComplicationServer/",
+  "save_dir" : "../MachineLearningData/ServerData/LimbComplicationServer/Resized/",
+  "image_folder" : "thermal/",
+  "wound_folder" : "",
+  "tissue_folder" : "",
+  "model_name" : "mobilenet"
+}
